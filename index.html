@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oluwanifemi Precious Oke - Machine Learning Engineer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* --- DARK MODE (DEFAULT) VARIABLES --- */
+        :root {
+            /* Deep, dark gradient */
+            --bg-grad-1: #000000;
+            --bg-grad-2: #1a1a1a;
+            --bg-grad-3: #252525;
+            --bg-grad-4: #0a0a0a;
+
+            /* Text */
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            
+            /* Accents */
+            --accent: #ffffff;
+            --btn-text: #0a0a0a;
+            
+            /* Glass Card Styles (Dark) */
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --card-hover-bg: rgba(255, 255, 255, 0.06);
+            --card-hover-border: rgba(255, 255, 255, 0.3);
+            
+            /* Toggle Button Specifics */
+            --toggle-bg: rgba(255, 255, 255, 0.1);
+            --toggle-icon: #ffffff;
+            
+            /* Other */
+            --hero-overlay: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
+            --shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            --footer-bg: rgba(20, 20, 20, 0.8);
+        }
+
+        /* --- LIGHT MODE VARIABLES (PREMIUM DAY) --- */
+        body.light-mode {
+            /* "Aurora" Gradient: White -> Soft Blue -> Very Faint Lavender -> White */
+            --bg-grad-1: #ffffff;
+            --bg-grad-2: #f0f4f8; 
+            --bg-grad-3: #eef2ff;
+            --bg-grad-4: #fafafa;
+
+            /* High Contrast Text */
+            --text-primary: #111827;
+            --text-secondary: #4b5563;
+
+            /* Accents */
+            --accent: #000000;
+            --btn-text: #ffffff;
+
+            /* Glass Card Styles (Crystal) */
+            --card-bg: rgba(255, 255, 255, 0.6);
+            --card-border: rgba(255, 255, 255, 0.9);
+            --card-hover-bg: rgba(255, 255, 255, 0.85);
+            --card-hover-border: rgba(0, 0, 0, 0.1);
+
+            /* Toggle Button: High contrast black circle */
+            --toggle-bg: #000000;
+            --toggle-icon: #ffffff;
+
+            /* Other */
+            --hero-overlay: radial-gradient(circle, rgba(0,0,0,0.03) 0%, transparent 70%);
+            --shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            --footer-bg: rgba(255, 255, 255, 0.5);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(-45deg, var(--bg-grad-1), var(--bg-grad-2), var(--bg-grad-3), var(--bg-grad-4));
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background 0.5s ease, color 0.5s ease;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- THEME TOGGLE BUTTON --- */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--toggle-bg);
+            color: var(--toggle-icon);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1) rotate(15deg);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        /* --- Animations --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: var(--hero-overlay);
+            animation: float 20s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(50px, 50px) rotate(180deg); }
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-primary); 
+            line-height: 1.2;
+            opacity: 0;
+            animation: fadeSlideDown 1s forwards 0.2s;
+        }
+
+        @keyframes fadeSlideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-text h2 {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            font-weight: 400;
+            line-height: 1.6;
+            opacity: 0;
+            animation: fadeIn 1s forwards 0.6s;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .tech-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeIn 1s forwards 0.9s;
+        }
+
+        .badge {
+            padding: 8px 16px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-secondary);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .badge:hover {
+            background: var(--card-hover-bg);
+            border-color: var(--accent);
+            color: var(--text-primary);
+            transform: translateY(-3px);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeIn 1s forwards 1.2s;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn:hover {
+            background: var(--accent);
+            color: var(--btn-text);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .btn-secondary {
+            border-color: var(--card-border);
+            color: var(--text-secondary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--card-hover-bg);
+            color: var(--text-primary);
+            border-color: var(--accent);
+        }
+
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            animation: fadeSlideLeft 1s forwards 0.5s;
+        }
+
+        @keyframes fadeSlideLeft {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .profile-pic {
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            border: 4px solid var(--card-border);
+            box-shadow: var(--shadow);
+            object-fit: cover;
+            transition: all 0.5s ease;
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+        }
+
+        .profile-pic:hover {
+            transform: scale(1.03);
+            border-color: var(--accent);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+            color: var(--text-primary);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 60px;
+            font-size: 1.1rem;
+        }
+
+        /* Project Cards */
+        .project-card, .research-card, .experience-item {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 60px;
+            transition: all 0.4s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .research-card, .experience-item {
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .project-card:hover, .research-card:hover, .experience-item:hover {
+            border-color: var(--card-hover-border);
+            transform: translateY(-7px);
+            background: var(--card-hover-bg);
+        }
+
+        /* --- EDUCATION CARD STYLES --- */
+        .education-card {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 50px;
+            transition: all 0.4s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .education-card:hover {
+            border-color: var(--card-hover-border);
+            transform: translateY(-7px);
+            background: var(--card-hover-bg);
+        }
+
+        .education-logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--card-border);
+            flex-shrink: 0;
+            background: var(--bg-grad-2);
+        }
+
+        .education-details {
+            flex-grow: 1;
+        }
+
+        .education-details h3 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+            color: var(--text-primary);
+        }
+
+        .education-details h4 {
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .education-details p {
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .project-title {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .tag {
+            padding: 6px 14px;
+            background: var(--card-border);
+            border-radius: 4px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            transition: background 0.3s;
+        }
+        
+        .project-card:hover .tag {
+            background: var(--accent);
+            color: var(--btn-text);
+        }
+
+        .project-links {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .project-link {
+            padding: 10px 20px;
+            background: transparent;
+            border: 1px solid var(--card-border);
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .project-link:hover {
+            background: var(--card-hover-bg);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 300px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 8px;
+            margin-bottom: 30px;
+            object-fit: cover;
+            border: 1px solid var(--card-border);
+            transition: transform 0.4s ease;
+        }
+
+        .project-card:hover .project-image {
+            transform: scale(1.01);
+            border-color: var(--accent);
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .project-details h4 {
+            color: var(--text-primary);
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .project-details ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .project-details li {
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .project-details li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        .tech-stack {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid var(--card-border);
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* Research Grid - CHANGED TO FLEX COLUMN FOR FULL WIDTH */
+        .research-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .research-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .research-card .tag {
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .research-card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        /* Experience & Skills */
+        .experience-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .experience-meta {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .skill-category h3 {
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .skill-category ul {
+            list-style: none;
+        }
+
+        .skill-category li {
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .skill-category li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--footer-bg);
+            backdrop-filter: blur(10px);
+            padding: 60px 0 30px;
+            border-top: 1px solid var(--card-border);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .footer-profile {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 2px solid var(--card-border);
+            object-fit: cover;
+            background: var(--bg-grad-2);
+        }
+
+        .footer-info h3 {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .contact-info a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            color: var(--accent);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 1px solid var(--card-border);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .social-links a:hover {
+            background: var(--card-hover-bg);
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid var(--card-border);
+            color: var(--text-secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-image {
+                order: -1;
+            }
+
+            .profile-pic {
+                width: 300px;
+                height: 300px;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .tech-badges {
+                justify-content: center;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+
+            .hero-text h2 {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .project-title {
+                font-size: 1.5rem;
+            }
+            
+            .theme-toggle {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+
+            .education-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Dark Mode">
+        <i class="fas fa-sun"></i>
+    </button>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Building and Deploying Real-World Machine Learning Systems.</h1>
+                    <h2>Aspiring Machine Learning Engineer with hands-on experience in end-to-end ML deployment, Generative AI, and scalable data-driven systems.</h2>
+                    
+                    <div class="tech-badges">
+                        <span class="badge">Python</span>
+                        <span class="badge">TensorFlow</span>
+                        <span class="badge">PyTorch</span>
+                        <span class="badge">Docker</span>
+                        <span class="badge">FastAPI</span>
+                        <span class="badge">AWS/Cloud Deployment</span>
+                        <span class="badge">MLflow</span>
+                    </div>
+
+                    <div class="hero-buttons">
+                        <a href="#projects" class="btn"><i class="fas fa-code-branch"></i> View Projects</a>
+                    </div>
+                </div>
+
+                <div class="hero-image">
+                    <img src="./images/Profile.jpg" alt="Oluwanifemi Precious Oke" class="profile-pic">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title reveal">Featured Projects</h2>
+            <p class="section-subtitle reveal">End-to-End Machine Learning Projects with Deployment</p>
+
+            <div class="project-card reveal">
+                <div class="project-header">
+                    <div>
+                        <h3 class="project-title">Hybrid E-Commerce Recommender</h3>
+                        <div class="project-tags">
+                            <span class="tag">End-to-End ML System</span>
+                            <span class="tag">Reinforcement Learning</span>
+                        </div>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://hybrid-rec.vercel.app/" class="project-link" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                        <a href="https://github.com/okefemi12/ecommerce-recommender-system" class="project-link" target="_blank">
+                            <i class="fab fa-github"></i> Source
+                        </a>
+                    </div>
+                </div>
+
+                <img src="./images/project1.jpg" alt="E-Commerce Recommender" class="project-image">
+
+                <p class="project-description">
+                    A hybrid recommendation system designed to model the full user journey from discovery to purchase. The system combines representation learning and reinforcement learning to optimize long-term user engagement rather than short-term clicks.
+                </p>
+
+                <div class="project-details">
+                    <h4>Key Architecture</h4>
+                    <ul>
+                        <li><strong>Discovery:</strong> Variational Autoencoder (VAE) for latent preference mining</li>
+                        <li><strong>Intent:</strong> Transformer (SASRec) for next-item prediction (100% catalog coverage)</li>
+                        <li><strong>Decision:</strong> Custom RL Agent (Transformer-DQN) trained via Sim-to-Real workflows</li>
+                    </ul>
+
+                    <h4>Impact</h4>
+                    <ul>
+                        <li>Achieved 8.72% Recall@10 (1.04x lift vs. Baseline)</li>
+                        <li>Low-latency inference (&lt;10ms) through model optimization and efficient serving</li>
+                    </ul>
+
+                    <p class="tech-stack"><strong>Tech Stack:</strong> TensorFlow, FastAPI, Docker, MLflow, GitHub Actions</p>
+                </div>
+            </div>
+
+            <div class="project-card reveal">
+                <div class="project-header">
+                    <div>
+                        <h3 class="project-title">Credit-Scout Risk Engine</h3>
+                        <div class="project-tags">
+                            <span class="tag">FinTech AI</span>
+                            <span class="tag">Explainability (XAI)</span>
+                            <span class="tag">LLM</span>
+                        </div>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://huggingface.co/spaces/oke39/Credit-Scout-Live" class="project-link" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                        <a href="https://github.com/okefemi12/credit-scout-risk-engine" class="project-link" target="_blank">
+                            <i class="fab fa-github"></i> Source
+                        </a>
+                    </div>
+                </div>
+
+                <img src="./images/project2.jpg" alt="Credit-Scout Risk Engine" class="project-image">
+
+                <p class="project-description">
+                    A fraud detection system designed to improve model transparency by combining neural networks with explainability techniques and natural language reporting.
+                </p>
+
+                <div class="project-details">
+                    <h4>Key Architecture</h4>
+                    <ul>
+                        <li><strong>Detection:</strong> LSTM Neural Network trained on PaySim financial datasets</li>
+                        <li><strong>Explainability:</strong> SHAP (Shapley Additive exPlanations) to visualize risk factors</li>
+                        <li><strong>Compliance:</strong> Llama 3.3 (via Groq) generates natural language "Adverse Action Notices" for non-technical auditors</li>
+                    </ul>
+
+                    <h4>Impact</h4>
+                    <ul>
+                        <li>Automates compliance documentation, reducing manual audit time</li>
+                        <li>Provides granular, feature-level risk scoring for loan officers</li>
+                    </ul>
+
+                    <p class="tech-stack"><strong>Tech Stack:</strong> LSTM, Streamlit, Groq API, SHAP, Docker</p>
+                </div>
+            </div>
+
+            <div class="project-card reveal">
+                <div class="project-header">
+                    <div>
+                        <h3 class="project-title">Student Success Chatbot (ACE Bot)</h3>
+                        <div class="project-tags">
+                            <span class="tag">Generative AI</span>
+                            <span class="tag">RAG</span>
+                            <span class="tag">NLP</span>
+                        </div>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://student-success-backend.onrender.com/test" class="project-link" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                        <a href="https://github.com/okefemi12/student-success-chatbot" class="project-link" target="_blank">
+                            <i class="fab fa-github"></i> Source
+                        </a>
+                    </div>
+                </div>
+
+                <img src="./images/project3.png" alt="ACE Bot" class="project-image">
+
+                <p class="project-description">
+                    An intelligent academic assistant that processes unstructured data (PDFs, Images) to help students plan and improve performance.
+                </p>
+
+                <div class="project-details">
+                    <h4>Key Features</h4>
+                    <ul>
+                        <li><strong>RAG Pipeline:</strong> Extracts study materials via OCR (PyMuPDF/Tesseract) and retrieves context using Vector Search</li>
+                        <li><strong>Performance Prediction:</strong> Integrated ML classifier to forecast academic success probabilities</li>
+                        <li><strong>Secure Storage:</strong> Firestore for chat history and Cloudinary for media assets</li>
+                    </ul>
+
+                    <p class="tech-stack"><strong>Tech Stack:</strong> Flask, LangChain, Gemini/OpenAI, Firestore, Render</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="research">
+        <div class="container">
+            <h2 class="section-title reveal">Specialized Models & Research</h2>
+            <p class="section-subtitle reveal">Technical Deep Dives & Experimental Work</p>
+
+            <div class="research-grid">
+                <div class="research-card reveal">
+                    <h3>"Jack" - Secure Code Agent</h3>
+                    <span class="tag">LLM Fine-Tuning</span>
+                    <p>
+                        A specialized fine-tune of Llama-3 8B, engineered to automatically detect and patch security vulnerabilities (SQLi, XSS) in Python code.
+                    </p>
+                    <p><strong>Performance:</strong> 88.0% Bandit Static Analysis Pass Rate</p>
+                    <p><strong>Methodology:</strong> Trained using Unsloth and TRL on a vulnerability-fix dataset</p>
+                    <a href="https://huggingface.co/oke39/llama3-8b-secure-code" class="project-link" target="_blank">
+                        <i class="fas fa-brain"></i> Hugging Face Model
+                    </a>
+                </div>
+
+                <div class="research-card reveal">
+                    <h3>NFL Big Data Bowl 2026</h3>
+                    <span class="tag">Sports Analytics</span>
+                    <span class="tag">Sequence Modeling</span>
+                    <p>
+                        Participant in the 2026 NFL Big Data Bowl (University Track). Developed a custom metric called "Ball Pursuit Efficiency (BPE)" to evaluate defensive discipline by analyzing timestamped player tracking data.
+                    </p>
+                    <p><strong>Method:</strong> Ensemble Model (XGBoost + LSTM + Transformers) to predict optimal player paths vs. actual movement</p>
+                    <p><strong>Key Finding:</strong> Achieved 4.425 RMSE (28% improvement over baseline).</p>
+                    
+                    <img src="./images/ball_pursuit.png" alt="Model Performance and Prediction Analysis" style="width: 100%; border-radius: 8px; margin-bottom: 20px; border: 1px solid var(--card-border);">
+
+                    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                        <a href="https://www.kaggle.com/code/okeoluwanifemi/nfl-prediction" class="project-link" target="_blank">
+                            <i class="fab fa-kaggle"></i> Kaggle Notebook
+                        </a>
+                        <a href="https://youtu.be/M6CLhlZFp0M" class="project-link" target="_blank">
+                            <i class="fab fa-youtube"></i> Watch Visualization
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <div class="container">
+            <h2 class="section-title reveal">Experience & Skills</h2>
+
+            <div class="education-card reveal">
+                <img src="./images/school.jpg" alt="Babcock University" class="education-logo">
+                <div class="education-details">
+                    <h3>B.Sc. Computer Science</h3>
+                    <h4>Babcock University</h4>
+                    <p><strong>Status:</strong> Currently Pursuing (Expected Graduation: June 2026)</p>
+                    <p><strong>Focus:</strong> Artificial Intelligence, Data Structures, Machine Learning, Software Engineering</p>
+                </div>
+            </div>
+
+            <div class="experience-item reveal">
+                <h3>Mobile & Flutter Developer (Intern)</h3>
+                <p class="experience-meta">Alliance Consulting & Digital Solutions | Lagos, Nigeria</p>
+                <ul>
+                    <li>Built and integrated backend-driven mobile applications using Flutter and Firebase, consuming REST APIs for data-driven features</li>
+                    <li>Worked with authentication, user data, and real-time updates, strengthening understanding of production application architectures</li>
+                    <li>Applied these foundations to later ML-backed systems and API-based model deployments</li>
+                </ul>
+            </div>
+
+            <h3 class="reveal" style="margin-top: 60px; margin-bottom: 30px; font-size: 2rem; color: var(--text-primary);">Technical Skills</h3>
+            
+            <div class="skills-grid">
+                <div class="skill-category reveal">
+                    <h3>Languages</h3>
+                    <ul>
+                        <li>Python</li>
+                        <li>SQL</li>
+                        <li>Dart</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category reveal">
+                    <h3>ML Frameworks</h3>
+                    <ul>
+                        <li>TensorFlow</li>
+                        <li>Keras</li>
+                        <li>PyTorch</li>
+                        <li>Scikit-learn</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category reveal">
+                    <h3>LLM Engineering</h3>
+                    <ul>
+                        <li>LangChain</li>
+                        <li>Hugging Face (Transformers/BERT)</li>
+                        <li>RAG</li>
+                        <li>Groq</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category reveal">
+                    <h3>MLOps</h3>
+                    <ul>
+                        <li>Docker</li>
+                        <li>MLflow</li>
+                        <li>DagsHub</li>
+                        <li>GitHub Actions</li>
+                        <li>FastAPI</li>
+                        <li>Flask</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category reveal">
+                    <h3>Cloud/Tools</h3>
+                    <ul>
+                        <li>Render</li>
+                        <li>Hugging Face Spaces</li>
+                        <li>Firebase</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="margin-top: 60px;" class="reveal">
+                <h3 style="margin-bottom: 20px; font-size: 1.5rem; color: var(--text-primary);">Certifications</h3>
+                <div class="experience-item">
+                    <h3>IBM Machine Learning Professional Certificate</h3>
+                    <p class="experience-meta">Coursera</p>
+                    <a href="https://coursera.org/share/5b8e83911f9bfa3f169f8defd4327164" class="project-link">
+                        <i class="fas fa-certificate"></i> View Credential
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+                
+                <div class="footer-info">
+                    <h3>Oluwanifemi Precious Oke</h3>
+                    <div class="contact-info">
+                        <a href="mailto:oke.precious.ml@gmail.com"><i class="fas fa-envelope"></i> oke.precious.ml@gmail.com</a>
+                        <p style="color: var(--text-secondary);">Lagos, Nigeria</p>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/oluwanifemi-precious-oke-135623321/" target="_blank">
+                            <i class="fab fa-linkedin"></i> LinkedIn
+                        </a>
+                        <a href="https://github.com/okefemi12" target="_blank">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                        <a href="https://huggingface.co/oke39" target="_blank">
+                            <i class="fas fa-brain"></i> Hugging Face
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; Oluwanifemi Precious Oke. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Scroll Animations
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            const hiddenElements = document.querySelectorAll('.reveal');
+            hiddenElements.forEach((el) => observer.observe(el));
+
+            // 2. Theme Toggle Logic
+            const themeToggle = document.getElementById('theme-toggle');
+            const icon = themeToggle.querySelector('i');
+
+            // Check if user has a saved preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-mode');
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+
+            themeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('light-mode');
+                
+                // Switch Icon
+                if (document.body.classList.contains('light-mode')) {
+                    icon.classList.remove('fa-sun');
+                    icon.classList.add('fa-moon');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
